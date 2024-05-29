@@ -1,0 +1,44 @@
+1. Manual Task: Post ERA (Explanation):
+
+- ERA stands for Electronic Remittance Advice, which is essentially an electronic document that healthcare 
+providers receive from insurance companies explaining the payments made for medical services. Posting ERA 
+involves recording these payments and updating patient records accordingly.
+
+2. Automated Tasks (Explanation):
+
+- Updating Patients' Balances: When an ERA is posted, it often includes information about the payments 
+made by insurance. So, the patient's balance needs to be updated based on this information.
+- Creating Patients' Invoices: Invoices need to be generated for the patients based on the services provided 
+and the payments received.
+- Charging Credit Cards (if stored): If patients have their credit card information stored, the system should 
+automatically charge the appropriate amount.
+- Sending Text Messages to Patients: Patients should be notified via text message that their statement has been updated.
+
+Frontend (React):
+
+1. Create React App: Set up a new React project using create-react-app.
+2. Components:
+- Create components for posting ERA, updating patient balances, creating invoices, charging credit cards, and sending text messages.
+- Each component will handle its specific task and interact with the backend API.
+3. API Calls:
+- Use fetch or axios to make HTTP requests to the backend API endpoints.
+- For example, when posting ERA, the frontend will send a POST request to the backend with the ERA data.
+4. User Interface:
+- Design user-friendly interfaces for each task using libraries like Material-UI or Bootstrap.
+- Ensure smooth navigation between different components.
+
+Backend (Express):
+
+1. Set Up Express Server: Initialize a new Express project.
+2. Routes:
+- Create routes for handling different tasks such as posting ERA, updating balances, creating invoices, charging credit cards, 
+and sending text messages.
+- Define appropriate HTTP methods (POST, GET, etc.) for each route.
+3. Controllers:
+- Implement controller functions for each route to process incoming requests and perform necessary actions.
+- For example, when receiving a request to post ERA, the controller will update patient balances and create invoices.
+4. Database Interaction:
+- If data needs to be stored, interact with a database (e.g., MongoDB, PostgreSQL) to store patient information, payment details, etc.
+5. Integration:
+- Integrate with external services for tasks like charging credit cards and sending text messages.
+- Use libraries or APIs provided by payment gateways and SMS service providers for this purpose.
