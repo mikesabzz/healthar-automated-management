@@ -1,30 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 
-const CreateInvoices = () => {
+const CreateInvoices = ({ api }) => {
+  const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleCreateInvoices = async () => {
-    try {
-      setLoading(true);
-      // Make a POST request to the backend API endpoint for creating invoices
-    //   const response = await axios.post('/api/create-invoices');
-    //   console.log(response.data); // Log the response from the server
-      setLoading(false);
-    } catch (err) {
-      setError(err.response.data.error); // Set error state with error message
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchInvoices = async () => {
+      try {
+        setLoading(true);
+        const response = await api.get('/api/generate-invoices');
+        setInvoices(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.response ? err.response.data.error : err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchInvoices();
+  }, [api]);
 
   return (
     <div>
-      <h2>Create Invoices</h2>
+      <h2>Generated Invoices</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button onClick={handleCreateInvoices} disabled={loading}>
-        {loading ? 'Creating Invoices...' : 'Create Invoices'}
-      </button>
+      {loading ? (
+        <p>Loading invoices...</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Patient Name</th>
+              <th>Service Date</th>
+              <th>Insurance Company</th>
+              <th>Payment Amount</th>
+              <th>Balance</th>
+              <th>Invoice Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {invoices.map((invoice, index) => (
+              <tr key={index}>
+                <td>{invoice.patientName}</td>
+                <td>{invoice.serviceDate}</td>
+                <td>{invoice.insuranceCompany}</td>
+                <td>{invoice.paymentAmount.toFixed(2)}</td>
+                <td>{invoice.balance.toFixed(2)}</td>
+                <td>{invoice.invoiceAmount.toFixed(2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      <Link to="/">
+        <button>Go to Posting ERA</button>
+      </Link>
+      <Link to="/update-patient-balance">
+        <button>Go to Update Patient Balance</button>
+      </Link>
     </div>
   );
 };

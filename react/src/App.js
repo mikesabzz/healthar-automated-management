@@ -24,10 +24,10 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<PostingERA api={api} />} />
-          <Route path="/update-patient-balance" element={<UpdatePatientBalance />} />
-          <Route path="/messages" element={<SendingMessages />} />
-          <Route path="/generate-invoice" element={<CreateInvoices />} />
-          <Route path="/credit-card-charge" element={<ChargeCreditCards />} />
+          <Route path="/update-patient-balance" element={<UpdatePatientBalance api={api} />} />
+          <Route path="/messages" element={<SendingMessages api={api} />} />
+          <Route path="/generate-invoice" element={<CreateInvoices api={api} />} />
+          <Route path="/credit-card-charge" element={<ChargeCreditCards api={api} />} />
         </Routes>
       </div>
     </Router>
